@@ -1,0 +1,7 @@
+test_id,test_name,username,password,scenario,expected_url_contains,expected_text,expected_text_target
+TC_LOGIN_001,Valid login,Admin,admin123,valid_login,dashboard,Dashboard,dashboard_heading
+TC_LOGIN_002,Invalid credentials,Admin,wrongpassword,invalid_login,auth/login,Invalid credentials,error_alert
+TC_LOGIN_003,Empty username,,admin123,empty_username,auth/login,Required,username_required
+TC_LOGIN_004,Empty password,Admin,,empty_password,auth/login,Required,password_required
+TC_LOGIN_005,Both fields empty,,,both_empty,auth/login,Required,both_required
+TC_LOGIN_006,UI smoke,,,ui_smoke,auth/login,Login,login_heading

@@ -1,0 +1,41 @@
+name: OrangeHRM E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  login-tests:
+    name: Login POM Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run login TestNG suite
+        run: mvn clean test -B -Dheadless=true
+
+      - name: Upload Surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          retention-days: 7

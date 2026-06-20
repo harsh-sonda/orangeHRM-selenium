@@ -1,0 +1,42 @@
+test_id,test_name,step,action,locator_key,input,expected,notes
+TC_LOGIN_001,Valid login,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_001,Valid login,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_001,Valid login,3,type,username,Admin,,Enter username
+TC_LOGIN_001,Valid login,4,type,password,admin123,,Enter password
+TC_LOGIN_001,Valid login,5,click,login_button,,,Submit form
+TC_LOGIN_001,Valid login,6,assert_url,,,dashboard,Verify redirect to dashboard
+TC_LOGIN_001,Valid login,7,assert_text,dashboard_heading,,Dashboard,Verify dashboard loaded
+TC_LOGIN_001,Valid login,8,close_browser,,,,Cleanup
+TC_LOGIN_002,Invalid credentials,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_002,Invalid credentials,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_002,Invalid credentials,3,type,username,Admin,,Enter username
+TC_LOGIN_002,Invalid credentials,4,type,password,wrongpassword,,Enter wrong password
+TC_LOGIN_002,Invalid credentials,5,click,login_button,,,Submit form
+TC_LOGIN_002,Invalid credentials,6,assert_text,error_alert,,Invalid credentials,Verify error message
+TC_LOGIN_002,Invalid credentials,7,assert_url,,,auth/login,Verify still on login page
+TC_LOGIN_002,Invalid credentials,8,close_browser,,,,Cleanup
+TC_LOGIN_003,Empty username,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_003,Empty username,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_003,Empty username,3,type,password,admin123,,Enter password only
+TC_LOGIN_003,Empty username,4,click,login_button,,,Submit form
+TC_LOGIN_003,Empty username,5,assert_text,username_required_error,,Required,Verify username required validation
+TC_LOGIN_003,Empty username,6,close_browser,,,,Cleanup
+TC_LOGIN_004,Empty password,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_004,Empty password,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_004,Empty password,3,type,username,Admin,,Enter username only
+TC_LOGIN_004,Empty password,4,click,login_button,,,Submit form
+TC_LOGIN_004,Empty password,5,assert_text,password_required_error,,Required,Verify password required validation
+TC_LOGIN_004,Empty password,6,close_browser,,,,Cleanup
+TC_LOGIN_005,Both fields empty,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_005,Both fields empty,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_005,Both fields empty,3,click,login_button,,,Submit without entering credentials
+TC_LOGIN_005,Both fields empty,4,assert_text,username_required_error,,Required,Verify username required validation
+TC_LOGIN_005,Both fields empty,5,assert_text,password_required_error,,Required,Verify password required validation
+TC_LOGIN_005,Both fields empty,6,close_browser,,,,Cleanup
+TC_LOGIN_006,UI smoke,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_006,UI smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_006,UI smoke,3,assert_text,login_heading,,Login,Verify login heading visible
+TC_LOGIN_006,UI smoke,4,assert_attribute,login_button,,type=submit,Verify login button present
+TC_LOGIN_006,UI smoke,5,assert_text,forgot_password,,Forgot your password?,Verify forgot password text visible
+TC_LOGIN_006,UI smoke,6,assert_text,version_text,,OrangeHRM,Verify OrangeHRM branding visible
+TC_LOGIN_006,UI smoke,7,close_browser,,,,Cleanup

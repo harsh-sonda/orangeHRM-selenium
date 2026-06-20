@@ -1,0 +1,6 @@
+tests/results/
+*.png
+target/
+*.class
+.idea/
+*.iml
