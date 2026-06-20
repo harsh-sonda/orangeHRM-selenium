@@ -9,11 +9,20 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  CI: true
+  headless: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
-  login-tests:
-    name: Login POM Tests
+  e2e-tests:
+    name: Java Selenium E2E (all modules)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 180
 
     steps:
       - name: Checkout repository
@@ -29,8 +38,32 @@ jobs:
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Run login TestNG suite
-        run: mvn clean test -B -Dheadless=true
+      - name: Verify full suite definition
+        run: |
+          test_count=$(grep -h '@Test' src/test/java/com/orangehrm/tests/*.java | wc -l | tr -d ' ')
+          echo "TestNG @Test methods: ${test_count}"
+          if [ "${test_count}" -ne 72 ]; then
+            echo "Expected 72 @Test methods across module test classes, found ${test_count}"
+            exit 1
+          fi
+          mvn -q test-compile -B
+
+      - name: Run full E2E TestNG suite (72 tests)
+        id: test
+        run: mvn clean test -B
+
+      - name: Publish test summary (pass / fail counts)
+        if: always() && steps.test.outcome != 'cancelled'
+        run: python3 .github/scripts/publish-test-summary.py
+
+      - name: Publish test report to Checks
+        if: always() && steps.test.outcome != 'cancelled'
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: target/surefire-reports/TEST-*.xml
+          check_name: OrangeHRM E2E Results
+          comment_title: OrangeHRM E2E Test Results
+          report_individual_runs: false
 
       - name: Upload Surefire reports
         if: always()
@@ -39,3 +72,12 @@ jobs:
           name: surefire-reports
           path: target/surefire-reports/
           retention-days: 7
+
+      - name: Upload failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-screenshots
+          path: target/screenshots/
+          retention-days: 7
+          if-no-files-found: ignore

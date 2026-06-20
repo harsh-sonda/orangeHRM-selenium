@@ -19,7 +19,7 @@
         <selenium.version>4.27.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
-        <opencsv.version>5.9</opencsv.version>
+        <headless>true</headless>
     </properties>
 
     <dependencies>
@@ -38,11 +38,6 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${opencsv.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -67,6 +62,15 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <printSummary>true</printSummary>
+                    <reportFormat>plain</reportFormat>
+                    <trimStackTrace>false</trimStackTrace>
+                    <systemPropertyVariables>
+                        <headless>${headless}</headless>
+                    </systemPropertyVariables>
+                    <!-- One browser per test method; full POM suite is sequential -->
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
         </plugins>

@@ -2,6 +2,9 @@ package com.orangehrm.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public final class TestConfig {
@@ -28,11 +31,19 @@ public final class TestConfig {
     }
 
     public static int getImplicitWaitSeconds() {
-        return Integer.parseInt(PROPERTIES.getProperty("implicit.wait.seconds", "10"));
+        return Integer.parseInt(PROPERTIES.getProperty("implicit.wait.seconds", "15"));
     }
 
     public static String getBrowser() {
         return PROPERTIES.getProperty("browser", "chrome");
+    }
+
+    public static String getAdminUsername() {
+        return PROPERTIES.getProperty("admin.username", "Admin");
+    }
+
+    public static String getAdminPassword() {
+        return PROPERTIES.getProperty("admin.password", "admin123");
     }
 
     public static boolean isHeadless() {
@@ -41,5 +52,33 @@ public final class TestConfig {
             return Boolean.parseBoolean(override);
         }
         return Boolean.parseBoolean(PROPERTIES.getProperty("headless", "false"));
+    }
+
+    public static Path getProjectRoot() {
+        String override = System.getProperty("project.root");
+        if (override != null && !override.isBlank()) {
+            return Paths.get(override);
+        }
+        return Paths.get(System.getProperty("user.dir"));
+    }
+
+    public static Path getResultsDir() {
+        return getProjectRoot().resolve("tests/results");
+    }
+
+    public static InputStream openClasspathResource(String resourcePath) {
+        InputStream stream = TestConfig.class.getClassLoader().getResourceAsStream(resourcePath);
+        if (stream == null) {
+            throw new IllegalStateException("Classpath resource not found: " + resourcePath);
+        }
+        return stream;
+    }
+
+    public static String readClasspathResource(String resourcePath) {
+        try (InputStream stream = openClasspathResource(resourcePath)) {
+            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to read classpath resource: " + resourcePath, e);
+        }
     }
 }

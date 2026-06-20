@@ -1,6 +1,45 @@
-tests/results/
-*.png
-target/
-*.class
+# OS hidden / junk files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE / editors
 .idea/
 *.iml
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+.factorypath
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+replay_pid*
+
+# Test run artifacts
+tests/results/*
+!tests/results/.gitkeep
+!tests/results/run-report.schema.json
+target/screenshots/
+*.png
+
+# WebDriverManager cache (local)
+.wdm/
+
+# Env / secrets
+.env
+.env.*
+!.env.example

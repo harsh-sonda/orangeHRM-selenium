@@ -1,0 +1,743 @@
+test_id,test_name,module,depth,step,action,locator_key,input,expected,notes
+TC_LOGIN_001,Valid login,auth,crud,1,start_browser,,chrome,,Launch browser
+TC_LOGIN_001,Valid login,auth,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LOGIN_001,Valid login,auth,crud,3,type,username,Admin,,Enter username
+TC_LOGIN_001,Valid login,auth,crud,4,type,password,admin123,,Enter password
+TC_LOGIN_001,Valid login,auth,crud,5,click,login_button,,,Submit form
+TC_LOGIN_001,Valid login,auth,crud,6,assert_url,,,dashboard,Verify redirect
+TC_LOGIN_001,Valid login,auth,crud,7,assert_text,dashboard_heading,,Dashboard,Verify dashboard
+TC_LOGIN_001,Valid login,auth,crud,8,close_browser,,,,Cleanup
+TC_LOGIN_002,Invalid credentials,auth,crud,1,start_browser,,chrome,,
+TC_LOGIN_002,Invalid credentials,auth,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,
+TC_LOGIN_002,Invalid credentials,auth,crud,3,type,username,Admin,,
+TC_LOGIN_002,Invalid credentials,auth,crud,4,type,password,wrongpassword,,
+TC_LOGIN_002,Invalid credentials,auth,crud,5,click,login_button,,,
+TC_LOGIN_002,Invalid credentials,auth,crud,6,assert_text,error_alert,,Invalid credentials,
+TC_LOGIN_002,Invalid credentials,auth,crud,7,assert_url,,,auth/login,
+TC_LOGIN_002,Invalid credentials,auth,crud,8,close_browser,,,,
+TC_LOGIN_003,Empty username,auth,crud,1,start_browser,,chrome,,
+TC_LOGIN_003,Empty username,auth,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,
+TC_LOGIN_003,Empty username,auth,crud,3,type,password,admin123,,
+TC_LOGIN_003,Empty username,auth,crud,4,click,login_button,,,
+TC_LOGIN_003,Empty username,auth,crud,5,assert_text,username_required_error,,Required,
+TC_LOGIN_003,Empty username,auth,crud,6,close_browser,,,,
+TC_LOGIN_004,Empty password,auth,crud,1,start_browser,,chrome,,
+TC_LOGIN_004,Empty password,auth,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,
+TC_LOGIN_004,Empty password,auth,crud,3,type,username,Admin,,
+TC_LOGIN_004,Empty password,auth,crud,4,click,login_button,,,
+TC_LOGIN_004,Empty password,auth,crud,5,assert_text,password_required_error,,Required,
+TC_LOGIN_004,Empty password,auth,crud,6,close_browser,,,,
+TC_LOGIN_005,Both fields empty,auth,crud,1,start_browser,,chrome,,
+TC_LOGIN_005,Both fields empty,auth,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,
+TC_LOGIN_005,Both fields empty,auth,crud,3,click,login_button,,,
+TC_LOGIN_005,Both fields empty,auth,crud,4,assert_text,username_required_error,,Required,
+TC_LOGIN_005,Both fields empty,auth,crud,5,assert_text,password_required_error,,Required,
+TC_LOGIN_005,Both fields empty,auth,crud,6,close_browser,,,,
+TC_LOGIN_006,UI smoke,auth,smoke,1,start_browser,,chrome,,
+TC_LOGIN_006,UI smoke,auth,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,
+TC_LOGIN_006,UI smoke,auth,smoke,3,assert_text,login_heading,,Login,
+TC_LOGIN_006,UI smoke,auth,smoke,4,assert_attribute,login_button,type=submit,,
+TC_LOGIN_006,UI smoke,auth,smoke,5,assert_text,forgot_password,,Forgot your password?,
+TC_LOGIN_006,UI smoke,auth,smoke,6,assert_text,version_text,,OrangeHRM,
+TC_LOGIN_006,UI smoke,auth,smoke,7,close_browser,,,,
+TC_COMMON_001,Sidebar menu items,common,smoke,1,start_browser,,chrome,,Launch browser
+TC_COMMON_001,Sidebar menu items,common,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_COMMON_001,Sidebar menu items,common,smoke,3,type,username,Admin,,Enter username
+TC_COMMON_001,Sidebar menu items,common,smoke,4,type,password,admin123,,Enter password
+TC_COMMON_001,Sidebar menu items,common,smoke,5,click,login_button,,,Submit login
+TC_COMMON_001,Sidebar menu items,common,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_COMMON_001,Sidebar menu items,common,smoke,7,assert_visible,common.sidebar_menu,,,Sidebar visible
+TC_COMMON_001,Sidebar menu items,common,smoke,8,assert_text,common.sidebar_menu,Admin,,Admin menu
+TC_COMMON_001,Sidebar menu items,common,smoke,9,assert_text,common.sidebar_menu,PIM,,PIM menu
+TC_COMMON_001,Sidebar menu items,common,smoke,10,assert_text,common.sidebar_menu,Buzz,,Buzz menu
+TC_COMMON_001,Sidebar menu items,common,smoke,11,close_browser,,,,Cleanup
+TC_COMMON_002,User dropdown,common,smoke,1,start_browser,,chrome,,Launch browser
+TC_COMMON_002,User dropdown,common,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_COMMON_002,User dropdown,common,smoke,3,type,username,Admin,,Enter username
+TC_COMMON_002,User dropdown,common,smoke,4,type,password,admin123,,Enter password
+TC_COMMON_002,User dropdown,common,smoke,5,click,login_button,,,Submit login
+TC_COMMON_002,User dropdown,common,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_COMMON_002,User dropdown,common,smoke,7,click,common.user_menu,,,Open user menu
+TC_COMMON_002,User dropdown,common,smoke,8,assert_text,common.logout_link,Logout,,Logout visible
+TC_COMMON_002,User dropdown,common,smoke,9,close_browser,,,,Cleanup
+TC_COMMON_003,Logout,common,smoke,1,start_browser,,chrome,,Launch browser
+TC_COMMON_003,Logout,common,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_COMMON_003,Logout,common,smoke,3,type,username,Admin,,Enter username
+TC_COMMON_003,Logout,common,smoke,4,type,password,admin123,,Enter password
+TC_COMMON_003,Logout,common,smoke,5,click,login_button,,,Submit login
+TC_COMMON_003,Logout,common,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_COMMON_003,Logout,common,smoke,7,click,common.user_menu,,,
+TC_COMMON_003,Logout,common,smoke,8,click,common.logout_link,,,
+TC_COMMON_003,Logout,common,smoke,9,assert_url,,,auth/login,
+TC_COMMON_003,Logout,common,smoke,10,close_browser,,,,Cleanup
+TC_DASH_001,Dashboard heading,dashboard,smoke,1,start_browser,,chrome,,Launch browser
+TC_DASH_001,Dashboard heading,dashboard,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DASH_001,Dashboard heading,dashboard,smoke,3,type,username,Admin,,Enter username
+TC_DASH_001,Dashboard heading,dashboard,smoke,4,type,password,admin123,,Enter password
+TC_DASH_001,Dashboard heading,dashboard,smoke,5,click,login_button,,,Submit login
+TC_DASH_001,Dashboard heading,dashboard,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DASH_001,Dashboard heading,dashboard,smoke,7,assert_text,dashboard.dashboard_heading,Dashboard,,
+TC_DASH_001,Dashboard heading,dashboard,smoke,8,assert_url,,,dashboard,
+TC_DASH_001,Dashboard heading,dashboard,smoke,9,close_browser,,,,Cleanup
+TC_DASH_002,Time at Work widget,dashboard,smoke,1,start_browser,,chrome,,Launch browser
+TC_DASH_002,Time at Work widget,dashboard,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DASH_002,Time at Work widget,dashboard,smoke,3,type,username,Admin,,Enter username
+TC_DASH_002,Time at Work widget,dashboard,smoke,4,type,password,admin123,,Enter password
+TC_DASH_002,Time at Work widget,dashboard,smoke,5,click,login_button,,,Submit login
+TC_DASH_002,Time at Work widget,dashboard,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DASH_002,Time at Work widget,dashboard,smoke,7,assert_text,dashboard.time_at_work_widget,Time at Work,,
+TC_DASH_002,Time at Work widget,dashboard,smoke,8,close_browser,,,,Cleanup
+TC_DASH_003,Leave widget,dashboard,smoke,1,start_browser,,chrome,,Launch browser
+TC_DASH_003,Leave widget,dashboard,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DASH_003,Leave widget,dashboard,smoke,3,type,username,Admin,,Enter username
+TC_DASH_003,Leave widget,dashboard,smoke,4,type,password,admin123,,Enter password
+TC_DASH_003,Leave widget,dashboard,smoke,5,click,login_button,,,Submit login
+TC_DASH_003,Leave widget,dashboard,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DASH_003,Leave widget,dashboard,smoke,7,assert_text,dashboard.leave_widget,Leave,,
+TC_DASH_003,Leave widget,dashboard,smoke,8,close_browser,,,,Cleanup
+TC_DASH_004,Buzz widget,dashboard,smoke,1,start_browser,,chrome,,Launch browser
+TC_DASH_004,Buzz widget,dashboard,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DASH_004,Buzz widget,dashboard,smoke,3,type,username,Admin,,Enter username
+TC_DASH_004,Buzz widget,dashboard,smoke,4,type,password,admin123,,Enter password
+TC_DASH_004,Buzz widget,dashboard,smoke,5,click,login_button,,,Submit login
+TC_DASH_004,Buzz widget,dashboard,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DASH_004,Buzz widget,dashboard,smoke,7,assert_text,dashboard.buzz_widget,Buzz,,
+TC_DASH_004,Buzz widget,dashboard,smoke,8,close_browser,,,,Cleanup
+TC_DASH_005,Quick Launch,dashboard,smoke,1,start_browser,,chrome,,Launch browser
+TC_DASH_005,Quick Launch,dashboard,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DASH_005,Quick Launch,dashboard,smoke,3,type,username,Admin,,Enter username
+TC_DASH_005,Quick Launch,dashboard,smoke,4,type,password,admin123,,Enter password
+TC_DASH_005,Quick Launch,dashboard,smoke,5,click,login_button,,,Submit login
+TC_DASH_005,Quick Launch,dashboard,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DASH_005,Quick Launch,dashboard,smoke,7,assert_visible,dashboard.quick_launch,,,
+TC_DASH_005,Quick Launch,dashboard,smoke,8,assert_text,dashboard.quick_launch,Leave,,
+TC_DASH_005,Quick Launch,dashboard,smoke,9,close_browser,,,,Cleanup
+TC_ADMIN_001,System Users search,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_001,System Users search,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_001,System Users search,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_001,System Users search,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_001,System Users search,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_001,System Users search,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_001,System Users search,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers,,
+TC_ADMIN_001,System Users search,admin,smoke,8,type,admin.username_search,Admin,,
+TC_ADMIN_001,System Users search,admin,smoke,9,click,common.search_button,,,
+TC_ADMIN_001,System Users search,admin,smoke,10,assert_table_contains,,Admin,,
+TC_ADMIN_001,System Users search,admin,smoke,11,close_browser,,,,Cleanup
+TC_ADMIN_002,Job Titles,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_002,Job Titles,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_002,Job Titles,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_002,Job Titles,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_002,Job Titles,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_002,Job Titles,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_002,Job Titles,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_002,Job Titles,admin,smoke,8,click,common.topbar_job,,,Open Job Titles section
+TC_ADMIN_002,Job Titles,admin,smoke,9,click,common.topbar_link,Job Titles,,Open Job Titles
+TC_ADMIN_002,Job Titles,admin,smoke,10,wait,,1500,,
+TC_ADMIN_002,Job Titles,admin,smoke,11,assert_text,common.page_subheading,,Job Titles,Job titles page
+TC_ADMIN_002,Job Titles,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_003,Pay Grades,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_003,Pay Grades,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_003,Pay Grades,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_003,Pay Grades,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_003,Pay Grades,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_003,Pay Grades,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_003,Pay Grades,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_003,Pay Grades,admin,smoke,8,click,common.topbar_job,,,Open Pay Grades section
+TC_ADMIN_003,Pay Grades,admin,smoke,9,click,common.topbar_link,Pay Grades,,Open Pay Grades
+TC_ADMIN_003,Pay Grades,admin,smoke,10,wait,,1500,,
+TC_ADMIN_003,Pay Grades,admin,smoke,11,assert_text,common.page_subheading,,Pay Grades,Pay grades page
+TC_ADMIN_003,Pay Grades,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_004,Job Categories,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_004,Job Categories,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_004,Job Categories,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_004,Job Categories,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_004,Job Categories,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_004,Job Categories,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_004,Job Categories,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_004,Job Categories,admin,smoke,8,click,common.topbar_job,,,Open Job Categories section
+TC_ADMIN_004,Job Categories,admin,smoke,9,click,common.topbar_link,Job Categories,,Open Job Categories
+TC_ADMIN_004,Job Categories,admin,smoke,10,wait,,1500,,
+TC_ADMIN_004,Job Categories,admin,smoke,11,assert_text,common.page_subheading,,Job Categories,Job categories page
+TC_ADMIN_004,Job Categories,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_005,Work Shifts,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_005,Work Shifts,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_005,Work Shifts,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_005,Work Shifts,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_005,Work Shifts,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_005,Work Shifts,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_005,Work Shifts,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_005,Work Shifts,admin,smoke,8,click,common.topbar_job,,,Open Work Shifts section
+TC_ADMIN_005,Work Shifts,admin,smoke,9,click,common.topbar_link,Work Shifts,,Open Work Shifts
+TC_ADMIN_005,Work Shifts,admin,smoke,10,wait,,1500,,
+TC_ADMIN_005,Work Shifts,admin,smoke,11,assert_text,common.page_subheading,,Work Shifts,Work shifts page
+TC_ADMIN_005,Work Shifts,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_006,General Information,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_006,General Information,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_006,General Information,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_006,General Information,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_006,General Information,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_006,General Information,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_006,General Information,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_006,General Information,admin,smoke,8,click,common.topbar_organization,,,Open General Information section
+TC_ADMIN_006,General Information,admin,smoke,9,click,common.topbar_link,General Information,,Open General Information
+TC_ADMIN_006,General Information,admin,smoke,10,wait,,1500,,
+TC_ADMIN_006,General Information,admin,smoke,11,assert_text,common.page_subheading,,General Information,Org info
+TC_ADMIN_006,General Information,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_007,Locations,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_007,Locations,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_007,Locations,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_007,Locations,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_007,Locations,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_007,Locations,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_007,Locations,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_007,Locations,admin,smoke,8,click,common.topbar_organization,,,Open Locations section
+TC_ADMIN_007,Locations,admin,smoke,9,click,common.topbar_link,Locations,,Open Locations
+TC_ADMIN_007,Locations,admin,smoke,10,wait,,1500,,
+TC_ADMIN_007,Locations,admin,smoke,11,assert_text,common.page_subheading,,Locations,Locations page
+TC_ADMIN_007,Locations,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_008,Skills,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_008,Skills,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_008,Skills,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_008,Skills,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_008,Skills,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_008,Skills,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_008,Skills,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_008,Skills,admin,smoke,8,click,common.topbar_qualifications,,,Open Skills section
+TC_ADMIN_008,Skills,admin,smoke,9,click,common.topbar_link,Skills,,Open Skills
+TC_ADMIN_008,Skills,admin,smoke,10,wait,,1500,,
+TC_ADMIN_008,Skills,admin,smoke,11,assert_text,common.page_subheading,,Skills,Skills page
+TC_ADMIN_008,Skills,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_009,Education,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_009,Education,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_009,Education,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_009,Education,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_009,Education,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_009,Education,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_009,Education,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_009,Education,admin,smoke,8,click,common.topbar_qualifications,,,Open Education section
+TC_ADMIN_009,Education,admin,smoke,9,click,common.topbar_link,Education,,Open Education
+TC_ADMIN_009,Education,admin,smoke,10,wait,,1500,,
+TC_ADMIN_009,Education,admin,smoke,11,assert_text,common.page_subheading,,Education,Education page
+TC_ADMIN_009,Education,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_010,Licenses,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_010,Licenses,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_010,Licenses,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_010,Licenses,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_010,Licenses,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_010,Licenses,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_010,Licenses,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_010,Licenses,admin,smoke,8,click,common.topbar_qualifications,,,Open Licenses section
+TC_ADMIN_010,Licenses,admin,smoke,9,click,common.topbar_link,Licenses,,Open Licenses
+TC_ADMIN_010,Licenses,admin,smoke,10,wait,,1500,,
+TC_ADMIN_010,Licenses,admin,smoke,11,assert_text,common.page_subheading,,Licenses,Licenses page
+TC_ADMIN_010,Licenses,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_011,Nationalities,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_011,Nationalities,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_011,Nationalities,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_011,Nationalities,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_011,Nationalities,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_011,Nationalities,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_011,Nationalities,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_011,Nationalities,admin,smoke,8,click,common.topbar_qualifications,,,Open Nationalities section
+TC_ADMIN_011,Nationalities,admin,smoke,9,click,common.topbar_link,Nationalities,,Open Nationalities
+TC_ADMIN_011,Nationalities,admin,smoke,10,wait,,1500,,
+TC_ADMIN_011,Nationalities,admin,smoke,11,assert_text,common.page_subheading,,Nationalities,Nationalities page
+TC_ADMIN_011,Nationalities,admin,smoke,12,close_browser,,,,Cleanup
+TC_ADMIN_012,Corporate Branding,admin,smoke,1,start_browser,,chrome,,Launch browser
+TC_ADMIN_012,Corporate Branding,admin,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_ADMIN_012,Corporate Branding,admin,smoke,3,type,username,Admin,,Enter username
+TC_ADMIN_012,Corporate Branding,admin,smoke,4,type,password,admin123,,Enter password
+TC_ADMIN_012,Corporate Branding,admin,smoke,5,click,login_button,,,Submit login
+TC_ADMIN_012,Corporate Branding,admin,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_ADMIN_012,Corporate Branding,admin,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule,,Open Admin module
+TC_ADMIN_012,Corporate Branding,admin,smoke,8,click,common.topbar_qualifications,,,Open Corporate Branding section
+TC_ADMIN_012,Corporate Branding,admin,smoke,9,click,common.topbar_link,Corporate Branding,,Open Corporate Branding
+TC_ADMIN_012,Corporate Branding,admin,smoke,10,wait,,1500,,
+TC_ADMIN_012,Corporate Branding,admin,smoke,11,assert_text,common.page_subheading,,Corporate Branding,Branding page
+TC_ADMIN_012,Corporate Branding,admin,smoke,12,close_browser,,,,Cleanup
+TC_PIM_001,Employee list loads,pim,smoke,1,start_browser,,chrome,,Launch browser
+TC_PIM_001,Employee list loads,pim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_001,Employee list loads,pim,smoke,3,type,username,Admin,,Enter username
+TC_PIM_001,Employee list loads,pim,smoke,4,type,password,admin123,,Enter password
+TC_PIM_001,Employee list loads,pim,smoke,5,click,login_button,,,Submit login
+TC_PIM_001,Employee list loads,pim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_001,Employee list loads,pim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList,,
+TC_PIM_001,Employee list loads,pim,smoke,8,assert_text,pim.employee_list_heading,PIM,,
+TC_PIM_001,Employee list loads,pim,smoke,9,assert_visible,common.table_body,,,
+TC_PIM_001,Employee list loads,pim,smoke,10,close_browser,,,,Cleanup
+TC_PIM_002,Search employee Peter,pim,crud,1,start_browser,,chrome,,Launch browser
+TC_PIM_002,Search employee Peter,pim,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_002,Search employee Peter,pim,crud,3,type,username,Admin,,Enter username
+TC_PIM_002,Search employee Peter,pim,crud,4,type,password,admin123,,Enter password
+TC_PIM_002,Search employee Peter,pim,crud,5,click,login_button,,,Submit login
+TC_PIM_002,Search employee Peter,pim,crud,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_002,Search employee Peter,pim,crud,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList,,
+TC_PIM_002,Search employee Peter,pim,crud,8,type,pim.employee_name_search,Peter,,
+TC_PIM_002,Search employee Peter,pim,crud,9,click,common.search_button,,,
+TC_PIM_002,Search employee Peter,pim,crud,10,wait,,2000,,
+TC_PIM_002,Search employee Peter,pim,crud,11,assert_table_contains,,Peter,,
+TC_PIM_002,Search employee Peter,pim,crud,12,close_browser,,,,Cleanup
+TC_PIM_003,Reset employee search,pim,smoke,1,start_browser,,chrome,,Launch browser
+TC_PIM_003,Reset employee search,pim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_003,Reset employee search,pim,smoke,3,type,username,Admin,,Enter username
+TC_PIM_003,Reset employee search,pim,smoke,4,type,password,admin123,,Enter password
+TC_PIM_003,Reset employee search,pim,smoke,5,click,login_button,,,Submit login
+TC_PIM_003,Reset employee search,pim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_003,Reset employee search,pim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList,,
+TC_PIM_003,Reset employee search,pim,smoke,8,type,pim.employee_name_search,Peter,,
+TC_PIM_003,Reset employee search,pim,smoke,9,click,common.search_button,,,
+TC_PIM_003,Reset employee search,pim,smoke,10,click,common.reset_button,,,
+TC_PIM_003,Reset employee search,pim,smoke,11,assert_visible,common.table_body,,,
+TC_PIM_003,Reset employee search,pim,smoke,12,close_browser,,,,Cleanup
+TC_PIM_004,Add Employee form,pim,smoke,1,start_browser,,chrome,,Launch browser
+TC_PIM_004,Add Employee form,pim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_004,Add Employee form,pim,smoke,3,type,username,Admin,,Enter username
+TC_PIM_004,Add Employee form,pim,smoke,4,type,password,admin123,,Enter password
+TC_PIM_004,Add Employee form,pim,smoke,5,click,login_button,,,Submit login
+TC_PIM_004,Add Employee form,pim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_004,Add Employee form,pim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee,,
+TC_PIM_004,Add Employee form,pim,smoke,8,assert_visible,pim.add_employee_firstname,,,
+TC_PIM_004,Add Employee form,pim,smoke,9,assert_visible,pim.add_employee_lastname,,,
+TC_PIM_004,Add Employee form,pim,smoke,10,close_browser,,,,Cleanup
+TC_PIM_005,Employee List report,pim,smoke,1,start_browser,,chrome,,Launch browser
+TC_PIM_005,Employee List report,pim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_005,Employee List report,pim,smoke,3,type,username,Admin,,Enter username
+TC_PIM_005,Employee List report,pim,smoke,4,type,password,admin123,,Enter password
+TC_PIM_005,Employee List report,pim,smoke,5,click,login_button,,,Submit login
+TC_PIM_005,Employee List report,pim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_005,Employee List report,pim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList,,PIM list as reports entry
+TC_PIM_005,Employee List report,pim,smoke,8,assert_url,,,viewEmployeeList,Verify URL
+TC_PIM_005,Employee List report,pim,smoke,9,assert_text,pim.employee_list_heading,,PIM,Verify page content
+TC_PIM_005,Employee List report,pim,smoke,10,close_browser,,,,Cleanup
+TC_PIM_006,Configuration fields,pim,smoke,1,start_browser,,chrome,,Launch browser
+TC_PIM_006,Configuration fields,pim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PIM_006,Configuration fields,pim,smoke,3,type,username,Admin,,Enter username
+TC_PIM_006,Configuration fields,pim,smoke,4,type,password,admin123,,Enter password
+TC_PIM_006,Configuration fields,pim,smoke,5,click,login_button,,,Submit login
+TC_PIM_006,Configuration fields,pim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PIM_006,Configuration fields,pim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPimModule,,PIM configuration module
+TC_PIM_006,Configuration fields,pim,smoke,8,assert_url,,,viewPimModule,Verify URL
+TC_PIM_006,Configuration fields,pim,smoke,9,assert_text,common.page_heading,,PIM,Verify page content
+TC_PIM_006,Configuration fields,pim,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_001,Apply Leave form,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_001,Apply Leave form,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_001,Apply Leave form,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_001,Apply Leave form,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_001,Apply Leave form,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_001,Apply Leave form,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_001,Apply Leave form,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/applyLeave,,
+TC_LEAVE_001,Apply Leave form,leave,smoke,8,assert_text,leave.apply_heading,Leave,,
+TC_LEAVE_001,Apply Leave form,leave,smoke,9,assert_visible,leave.leave_type_dropdown,,,
+TC_LEAVE_001,Apply Leave form,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_002,Apply Personal Leave,leave,crud,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_002,Apply Personal Leave,leave,crud,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_002,Apply Personal Leave,leave,crud,3,type,username,Admin,,Enter username
+TC_LEAVE_002,Apply Personal Leave,leave,crud,4,type,password,admin123,,Enter password
+TC_LEAVE_002,Apply Personal Leave,leave,crud,5,click,login_button,,,Submit login
+TC_LEAVE_002,Apply Personal Leave,leave,crud,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_002,Apply Personal Leave,leave,crud,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/applyLeave,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,8,click,leave.leave_type_dropdown,,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,9,click,leave.leave_type_personal,,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,10,type,leave.from_date,2026-01-07,,OrangeHRM yyyy-dd-mm = July 1 2026
+TC_LEAVE_002,Apply Personal Leave,leave,crud,11,type,leave.to_date,2026-01-07,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,12,type,leave.comments,E2E automated leave test,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,13,click,leave.apply_button,,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,14,wait,,2000,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,15,assert_text,common.toast_message,Success,,
+TC_LEAVE_002,Apply Personal Leave,leave,crud,16,close_browser,,,,Cleanup
+TC_LEAVE_003,My Leave list,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_003,My Leave list,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_003,My Leave list,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_003,My Leave list,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_003,My Leave list,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_003,My Leave list,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_003,My Leave list,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewMyLeaveList,,My Leave list
+TC_LEAVE_003,My Leave list,leave,smoke,8,assert_url,,,viewMyLeaveList,Verify URL
+TC_LEAVE_003,My Leave list,leave,smoke,9,assert_text,leave.my_leave_heading,,Leave,Verify page content
+TC_LEAVE_003,My Leave list,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_004,Entitlements,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_004,Entitlements,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_004,Entitlements,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_004,Entitlements,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_004,Entitlements,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_004,Entitlements,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_004,Entitlements,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveEntitlements,,Entitlements
+TC_LEAVE_004,Entitlements,leave,smoke,8,assert_url,,,viewLeaveEntitlements,Verify URL
+TC_LEAVE_004,Entitlements,leave,smoke,9,assert_text,leave.entitlements_heading,,Entitlements,Verify page content
+TC_LEAVE_004,Entitlements,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_005,Leave List admin,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_005,Leave List admin,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_005,Leave List admin,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_005,Leave List admin,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_005,Leave List admin,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_005,Leave List admin,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_005,Leave List admin,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList,,Leave List admin
+TC_LEAVE_005,Leave List admin,leave,smoke,8,assert_url,,,viewLeaveList,Verify URL
+TC_LEAVE_005,Leave List admin,leave,smoke,9,assert_text,leave.leave_list_heading,,Leave List,Verify page content
+TC_LEAVE_005,Leave List admin,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_006,Assign Leave,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_006,Assign Leave,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_006,Assign Leave,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_006,Assign Leave,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_006,Assign Leave,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_006,Assign Leave,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_006,Assign Leave,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/assignLeave,,Assign Leave
+TC_LEAVE_006,Assign Leave,leave,smoke,8,assert_url,,,assignLeave,Verify URL
+TC_LEAVE_006,Assign Leave,leave,smoke,9,assert_text,leave.assign_leave_heading,,Assign Leave,Verify page content
+TC_LEAVE_006,Assign Leave,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_007,Leave List report,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_007,Leave List report,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_007,Leave List report,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_007,Leave List report,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_007,Leave List report,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_007,Leave List report,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_007,Leave List report,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList,,Leave List report
+TC_LEAVE_007,Leave List report,leave,smoke,8,assert_url,,,viewLeaveList,Verify URL
+TC_LEAVE_007,Leave List report,leave,smoke,9,assert_text,leave.leave_list_heading,,Leave,Verify page content
+TC_LEAVE_007,Leave List report,leave,smoke,10,close_browser,,,,Cleanup
+TC_LEAVE_008,Leave Types config,leave,smoke,1,start_browser,,chrome,,Launch browser
+TC_LEAVE_008,Leave Types config,leave,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_LEAVE_008,Leave Types config,leave,smoke,3,type,username,Admin,,Enter username
+TC_LEAVE_008,Leave Types config,leave,smoke,4,type,password,admin123,,Enter password
+TC_LEAVE_008,Leave Types config,leave,smoke,5,click,login_button,,,Submit login
+TC_LEAVE_008,Leave Types config,leave,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_LEAVE_008,Leave Types config,leave,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/leave/leaveTypeList,,Leave Types config
+TC_LEAVE_008,Leave Types config,leave,smoke,8,assert_url,,,leaveTypeList,Verify URL
+TC_LEAVE_008,Leave Types config,leave,smoke,9,assert_text,leave.leave_types_heading,,Leave Types,Verify page content
+TC_LEAVE_008,Leave Types config,leave,smoke,10,close_browser,,,,Cleanup
+TC_TIME_001,My Timesheets,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_001,My Timesheets,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_001,My Timesheets,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_001,My Timesheets,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_001,My Timesheets,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_001,My Timesheets,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_001,My Timesheets,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_001,My Timesheets,time,smoke,8,click,time.topbar_timesheets,,,Open My Timesheets section
+TC_TIME_001,My Timesheets,time,smoke,9,click,common.topbar_link,My Timesheets,,Open My Timesheets
+TC_TIME_001,My Timesheets,time,smoke,10,wait,,1500,,
+TC_TIME_001,My Timesheets,time,smoke,11,assert_text,common.page_subheading,,My Timesheet,My Timesheets
+TC_TIME_001,My Timesheets,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_002,Employee Timesheets,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_002,Employee Timesheets,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_002,Employee Timesheets,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_002,Employee Timesheets,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_002,Employee Timesheets,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_002,Employee Timesheets,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_002,Employee Timesheets,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_002,Employee Timesheets,time,smoke,8,click,time.topbar_timesheets,,,Open Employee Timesheets section
+TC_TIME_002,Employee Timesheets,time,smoke,9,click,common.topbar_link,Employee Timesheets,,Open Employee Timesheets
+TC_TIME_002,Employee Timesheets,time,smoke,10,wait,,1500,,
+TC_TIME_002,Employee Timesheets,time,smoke,11,assert_text,common.page_subheading,,Employee Timesheets,Employee Timesheets
+TC_TIME_002,Employee Timesheets,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_003,My Attendance,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_003,My Attendance,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_003,My Attendance,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_003,My Attendance,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_003,My Attendance,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_003,My Attendance,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_003,My Attendance,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_003,My Attendance,time,smoke,8,click,time.topbar_attendance,,,Open My Records section
+TC_TIME_003,My Attendance,time,smoke,9,click,common.topbar_link,My Records,,Open My Records
+TC_TIME_003,My Attendance,time,smoke,10,wait,,1500,,
+TC_TIME_003,My Attendance,time,smoke,11,assert_text,common.page_subheading,,Attendance,My Attendance
+TC_TIME_003,My Attendance,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_004,Punch In Out,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_004,Punch In Out,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_004,Punch In Out,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_004,Punch In Out,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_004,Punch In Out,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_004,Punch In Out,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_004,Punch In Out,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_004,Punch In Out,time,smoke,8,click,time.topbar_attendance,,,Open Punch In/Out section
+TC_TIME_004,Punch In Out,time,smoke,9,click,common.topbar_link,Punch In/Out,,Open Punch In/Out
+TC_TIME_004,Punch In Out,time,smoke,10,wait,,1500,,
+TC_TIME_004,Punch In Out,time,smoke,11,assert_text,common.page_subheading,,Punch,Punch In Out
+TC_TIME_004,Punch In Out,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_005,Customers,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_005,Customers,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_005,Customers,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_005,Customers,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_005,Customers,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_005,Customers,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_005,Customers,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_005,Customers,time,smoke,8,click,time.topbar_project,,,Open Customers section
+TC_TIME_005,Customers,time,smoke,9,click,common.topbar_link,Customers,,Open Customers
+TC_TIME_005,Customers,time,smoke,10,wait,,1500,,
+TC_TIME_005,Customers,time,smoke,11,assert_text,common.page_subheading,,Customers,Customers
+TC_TIME_005,Customers,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_006,Projects,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_006,Projects,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_006,Projects,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_006,Projects,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_006,Projects,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_006,Projects,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_006,Projects,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_006,Projects,time,smoke,8,click,time.topbar_project,,,Open Projects section
+TC_TIME_006,Projects,time,smoke,9,click,common.topbar_link,Projects,,Open Projects
+TC_TIME_006,Projects,time,smoke,10,wait,,1500,,
+TC_TIME_006,Projects,time,smoke,11,assert_text,common.page_subheading,,Projects,Projects
+TC_TIME_006,Projects,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_007,Project Reports,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_007,Project Reports,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_007,Project Reports,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_007,Project Reports,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_007,Project Reports,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_007,Project Reports,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_007,Project Reports,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_007,Project Reports,time,smoke,8,click,time.topbar_reports,,,Open Project Reports section
+TC_TIME_007,Project Reports,time,smoke,9,click,common.topbar_link,Project Reports,,Open Project Reports
+TC_TIME_007,Project Reports,time,smoke,10,wait,,1500,,
+TC_TIME_007,Project Reports,time,smoke,11,assert_text,common.page_subheading,,Project,Project Reports
+TC_TIME_007,Project Reports,time,smoke,12,close_browser,,,,Cleanup
+TC_TIME_008,Employee Reports,time,smoke,1,start_browser,,chrome,,Launch browser
+TC_TIME_008,Employee Reports,time,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_TIME_008,Employee Reports,time,smoke,3,type,username,Admin,,Enter username
+TC_TIME_008,Employee Reports,time,smoke,4,type,password,admin123,,Enter password
+TC_TIME_008,Employee Reports,time,smoke,5,click,login_button,,,Submit login
+TC_TIME_008,Employee Reports,time,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_TIME_008,Employee Reports,time,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule,,Open time module
+TC_TIME_008,Employee Reports,time,smoke,8,click,time.topbar_reports,,,Open Employee Reports section
+TC_TIME_008,Employee Reports,time,smoke,9,click,common.topbar_link,Employee Reports,,Open Employee Reports
+TC_TIME_008,Employee Reports,time,smoke,10,wait,,1500,,
+TC_TIME_008,Employee Reports,time,smoke,11,assert_text,common.page_subheading,,Employee,Employee Reports
+TC_TIME_008,Employee Reports,time,smoke,12,close_browser,,,,Cleanup
+TC_REC_001,Candidates list,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_001,Candidates list,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_001,Candidates list,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_001,Candidates list,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_001,Candidates list,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_001,Candidates list,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_001,Candidates list,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates,,Candidates list
+TC_REC_001,Candidates list,recruitment,smoke,8,assert_url,,,viewCandidates,Verify URL
+TC_REC_001,Candidates list,recruitment,smoke,9,assert_text,recruitment.candidates_heading,,Candidates,Verify page content
+TC_REC_001,Candidates list,recruitment,smoke,10,close_browser,,,,Cleanup
+TC_REC_002,Vacancies list,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_002,Vacancies list,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_002,Vacancies list,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_002,Vacancies list,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_002,Vacancies list,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_002,Vacancies list,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_002,Vacancies list,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewJobVacancy,,Vacancies list
+TC_REC_002,Vacancies list,recruitment,smoke,8,assert_url,,,viewJobVacancy,Verify URL
+TC_REC_002,Vacancies list,recruitment,smoke,9,assert_text,recruitment.vacancies_heading,,Vacancies,Verify page content
+TC_REC_002,Vacancies list,recruitment,smoke,10,close_browser,,,,Cleanup
+TC_REC_003,Add Candidate form,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_003,Add Candidate form,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_003,Add Candidate form,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_003,Add Candidate form,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_003,Add Candidate form,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_003,Add Candidate form,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_003,Add Candidate form,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addCandidate,,
+TC_REC_003,Add Candidate form,recruitment,smoke,8,assert_visible,recruitment.add_candidate_firstname,,,
+TC_REC_003,Add Candidate form,recruitment,smoke,9,close_browser,,,,Cleanup
+TC_REC_004,Add Vacancy form,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_004,Add Vacancy form,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_004,Add Vacancy form,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_004,Add Vacancy form,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_004,Add Vacancy form,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_004,Add Vacancy form,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_004,Add Vacancy form,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy,,
+TC_REC_004,Add Vacancy form,recruitment,smoke,8,assert_visible,recruitment.add_vacancy_title,,,
+TC_REC_004,Add Vacancy form,recruitment,smoke,9,close_browser,,,,Cleanup
+TC_REC_005,Recruitment module,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_005,Recruitment module,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_005,Recruitment module,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_005,Recruitment module,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_005,Recruitment module,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_005,Recruitment module,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_005,Recruitment module,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewRecruitmentModule,,Recruitment config module
+TC_REC_005,Recruitment module,recruitment,smoke,8,assert_url,,,viewRecruitmentModule,Verify URL
+TC_REC_005,Recruitment module,recruitment,smoke,9,assert_text,common.page_heading,,Recruitment,Verify page content
+TC_REC_005,Recruitment module,recruitment,smoke,10,close_browser,,,,Cleanup
+TC_REC_006,Candidates report entry,recruitment,smoke,1,start_browser,,chrome,,Launch browser
+TC_REC_006,Candidates report entry,recruitment,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_REC_006,Candidates report entry,recruitment,smoke,3,type,username,Admin,,Enter username
+TC_REC_006,Candidates report entry,recruitment,smoke,4,type,password,admin123,,Enter password
+TC_REC_006,Candidates report entry,recruitment,smoke,5,click,login_button,,,Submit login
+TC_REC_006,Candidates report entry,recruitment,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_REC_006,Candidates report entry,recruitment,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates,,Recruitment reports entry
+TC_REC_006,Candidates report entry,recruitment,smoke,8,assert_url,,,viewCandidates,Verify URL
+TC_REC_006,Candidates report entry,recruitment,smoke,9,assert_text,recruitment.candidates_heading,,Candidates,Verify page content
+TC_REC_006,Candidates report entry,recruitment,smoke,10,close_browser,,,,Cleanup
+TC_PERF_001,Manage Reviews,performance,smoke,1,start_browser,,chrome,,Launch browser
+TC_PERF_001,Manage Reviews,performance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PERF_001,Manage Reviews,performance,smoke,3,type,username,Admin,,Enter username
+TC_PERF_001,Manage Reviews,performance,smoke,4,type,password,admin123,,Enter password
+TC_PERF_001,Manage Reviews,performance,smoke,5,click,login_button,,,Submit login
+TC_PERF_001,Manage Reviews,performance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PERF_001,Manage Reviews,performance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview,,Manage reviews
+TC_PERF_001,Manage Reviews,performance,smoke,8,assert_url,,,searchEvaluatePerformanceReview,Verify URL
+TC_PERF_001,Manage Reviews,performance,smoke,9,assert_text,performance.manage_reviews_heading,,Manage,Verify page content
+TC_PERF_001,Manage Reviews,performance,smoke,10,close_browser,,,,Cleanup
+TC_PERF_002,My Trackers,performance,smoke,1,start_browser,,chrome,,Launch browser
+TC_PERF_002,My Trackers,performance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PERF_002,My Trackers,performance,smoke,3,type,username,Admin,,Enter username
+TC_PERF_002,My Trackers,performance,smoke,4,type,password,admin123,,Enter password
+TC_PERF_002,My Trackers,performance,smoke,5,click,login_button,,,Submit login
+TC_PERF_002,My Trackers,performance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PERF_002,My Trackers,performance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/performance/viewMyPerformanceTrackerList,,My trackers
+TC_PERF_002,My Trackers,performance,smoke,8,assert_url,,,viewMyPerformanceTrackerList,Verify URL
+TC_PERF_002,My Trackers,performance,smoke,9,assert_text,performance.my_trackers_heading,,My Trackers,Verify page content
+TC_PERF_002,My Trackers,performance,smoke,10,close_browser,,,,Cleanup
+TC_PERF_003,Employee Trackers,performance,smoke,1,start_browser,,chrome,,Launch browser
+TC_PERF_003,Employee Trackers,performance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PERF_003,Employee Trackers,performance,smoke,3,type,username,Admin,,Enter username
+TC_PERF_003,Employee Trackers,performance,smoke,4,type,password,admin123,,Enter password
+TC_PERF_003,Employee Trackers,performance,smoke,5,click,login_button,,,Submit login
+TC_PERF_003,Employee Trackers,performance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PERF_003,Employee Trackers,performance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/performance/viewEmployeePerformanceTrackerList,,Employee trackers
+TC_PERF_003,Employee Trackers,performance,smoke,8,assert_url,,,viewEmployeePerformanceTrackerList,Verify URL
+TC_PERF_003,Employee Trackers,performance,smoke,9,assert_text,performance.employee_trackers_heading,,Employee Trackers,Verify page content
+TC_PERF_003,Employee Trackers,performance,smoke,10,close_browser,,,,Cleanup
+TC_PERF_004,KPI list,performance,smoke,1,start_browser,,chrome,,Launch browser
+TC_PERF_004,KPI list,performance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PERF_004,KPI list,performance,smoke,3,type,username,Admin,,Enter username
+TC_PERF_004,KPI list,performance,smoke,4,type,password,admin123,,Enter password
+TC_PERF_004,KPI list,performance,smoke,5,click,login_button,,,Submit login
+TC_PERF_004,KPI list,performance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PERF_004,KPI list,performance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchKpi,,KPI list
+TC_PERF_004,KPI list,performance,smoke,8,assert_url,,,searchKpi,Verify URL
+TC_PERF_004,KPI list,performance,smoke,9,assert_text,performance.kpi_heading,,Performance,Verify page content
+TC_PERF_004,KPI list,performance,smoke,10,close_browser,,,,Cleanup
+TC_PERF_005,Performance module,performance,smoke,1,start_browser,,chrome,,Launch browser
+TC_PERF_005,Performance module,performance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_PERF_005,Performance module,performance,smoke,3,type,username,Admin,,Enter username
+TC_PERF_005,Performance module,performance,smoke,4,type,password,admin123,,Enter password
+TC_PERF_005,Performance module,performance,smoke,5,click,login_button,,,Submit login
+TC_PERF_005,Performance module,performance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_PERF_005,Performance module,performance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/performance/viewPerformanceModule,,Performance config
+TC_PERF_005,Performance module,performance,smoke,8,assert_url,,,viewPerformanceModule,Verify URL
+TC_PERF_005,Performance module,performance,smoke,9,assert_text,common.page_heading,,Performance,Verify page content
+TC_PERF_005,Performance module,performance,smoke,10,close_browser,,,,Cleanup
+TC_DIR_001,Directory grid,directory,smoke,1,start_browser,,chrome,,Launch browser
+TC_DIR_001,Directory grid,directory,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DIR_001,Directory grid,directory,smoke,3,type,username,Admin,,Enter username
+TC_DIR_001,Directory grid,directory,smoke,4,type,password,admin123,,Enter password
+TC_DIR_001,Directory grid,directory,smoke,5,click,login_button,,,Submit login
+TC_DIR_001,Directory grid,directory,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DIR_001,Directory grid,directory,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory,,
+TC_DIR_001,Directory grid,directory,smoke,8,assert_text,directory.directory_heading,Directory,,
+TC_DIR_001,Directory grid,directory,smoke,9,assert_visible,directory.directory_cards,,,
+TC_DIR_001,Directory grid,directory,smoke,10,close_browser,,,,Cleanup
+TC_DIR_002,Directory search,directory,smoke,1,start_browser,,chrome,,Launch browser
+TC_DIR_002,Directory search,directory,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_DIR_002,Directory search,directory,smoke,3,type,username,Admin,,Enter username
+TC_DIR_002,Directory search,directory,smoke,4,type,password,admin123,,Enter password
+TC_DIR_002,Directory search,directory,smoke,5,click,login_button,,,Submit login
+TC_DIR_002,Directory search,directory,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_DIR_002,Directory search,directory,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory,,
+TC_DIR_002,Directory search,directory,smoke,8,type,directory.directory_search,Peter,,
+TC_DIR_002,Directory search,directory,smoke,9,wait,,2000,,
+TC_DIR_002,Directory search,directory,smoke,10,assert_table_contains,,Peter,,
+TC_DIR_002,Directory search,directory,smoke,11,close_browser,,,,Cleanup
+TC_MAINT_001,Purge Employee,maintenance,smoke,1,start_browser,,chrome,,Launch browser
+TC_MAINT_001,Purge Employee,maintenance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MAINT_001,Purge Employee,maintenance,smoke,3,type,username,Admin,,Enter username
+TC_MAINT_001,Purge Employee,maintenance,smoke,4,type,password,admin123,,Enter password
+TC_MAINT_001,Purge Employee,maintenance,smoke,5,click,login_button,,,Submit login
+TC_MAINT_001,Purge Employee,maintenance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MAINT_001,Purge Employee,maintenance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/purgeEmployee,,Purge employee
+TC_MAINT_001,Purge Employee,maintenance,smoke,8,assert_url,,,purgeEmployee,Verify URL
+TC_MAINT_001,Purge Employee,maintenance,smoke,9,assert_text,maintenance.purge_employee_heading,,Purge,Verify page content
+TC_MAINT_001,Purge Employee,maintenance,smoke,10,close_browser,,,,Cleanup
+TC_MAINT_002,Maintenance module,maintenance,smoke,1,start_browser,,chrome,,Launch browser
+TC_MAINT_002,Maintenance module,maintenance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MAINT_002,Maintenance module,maintenance,smoke,3,type,username,Admin,,Enter username
+TC_MAINT_002,Maintenance module,maintenance,smoke,4,type,password,admin123,,Enter password
+TC_MAINT_002,Maintenance module,maintenance,smoke,5,click,login_button,,,Submit login
+TC_MAINT_002,Maintenance module,maintenance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MAINT_002,Maintenance module,maintenance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/viewMaintenanceModule,,Access records module
+TC_MAINT_002,Maintenance module,maintenance,smoke,8,assert_url,,,viewMaintenanceModule,Verify URL
+TC_MAINT_002,Maintenance module,maintenance,smoke,9,assert_text,maintenance.access_records_heading,,Administrator,Verify page content
+TC_MAINT_002,Maintenance module,maintenance,smoke,10,close_browser,,,,Cleanup
+TC_MAINT_003,Maintenance access,maintenance,smoke,1,start_browser,,chrome,,Launch browser
+TC_MAINT_003,Maintenance access,maintenance,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MAINT_003,Maintenance access,maintenance,smoke,3,type,username,Admin,,Enter username
+TC_MAINT_003,Maintenance access,maintenance,smoke,4,type,password,admin123,,Enter password
+TC_MAINT_003,Maintenance access,maintenance,smoke,5,click,login_button,,,Submit login
+TC_MAINT_003,Maintenance access,maintenance,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MAINT_003,Maintenance access,maintenance,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/viewMaintenanceModule,,Maintenance landing
+TC_MAINT_003,Maintenance access,maintenance,smoke,8,assert_url,,,viewMaintenanceModule,Verify URL
+TC_MAINT_003,Maintenance access,maintenance,smoke,9,assert_text,common.page_heading,,Maintenance,Verify page content
+TC_MAINT_003,Maintenance access,maintenance,smoke,10,close_browser,,,,Cleanup
+TC_BUZZ_001,Buzz feed,buzz,smoke,1,start_browser,,chrome,,Launch browser
+TC_BUZZ_001,Buzz feed,buzz,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_BUZZ_001,Buzz feed,buzz,smoke,3,type,username,Admin,,Enter username
+TC_BUZZ_001,Buzz feed,buzz,smoke,4,type,password,admin123,,Enter password
+TC_BUZZ_001,Buzz feed,buzz,smoke,5,click,login_button,,,Submit login
+TC_BUZZ_001,Buzz feed,buzz,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_BUZZ_001,Buzz feed,buzz,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/buzz/viewBuzz,,
+TC_BUZZ_001,Buzz feed,buzz,smoke,8,assert_text,buzz.buzz_heading,Buzz,,
+TC_BUZZ_001,Buzz feed,buzz,smoke,9,close_browser,,,,Cleanup
+TC_BUZZ_002,Post composer,buzz,smoke,1,start_browser,,chrome,,Launch browser
+TC_BUZZ_002,Post composer,buzz,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_BUZZ_002,Post composer,buzz,smoke,3,type,username,Admin,,Enter username
+TC_BUZZ_002,Post composer,buzz,smoke,4,type,password,admin123,,Enter password
+TC_BUZZ_002,Post composer,buzz,smoke,5,click,login_button,,,Submit login
+TC_BUZZ_002,Post composer,buzz,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_BUZZ_002,Post composer,buzz,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/buzz/viewBuzz,,
+TC_BUZZ_002,Post composer,buzz,smoke,8,assert_visible,buzz.post_input,,,
+TC_BUZZ_002,Post composer,buzz,smoke,9,close_browser,,,,Cleanup
+TC_BUZZ_003,Buzz post card,buzz,smoke,1,start_browser,,chrome,,Launch browser
+TC_BUZZ_003,Buzz post card,buzz,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_BUZZ_003,Buzz post card,buzz,smoke,3,type,username,Admin,,Enter username
+TC_BUZZ_003,Buzz post card,buzz,smoke,4,type,password,admin123,,Enter password
+TC_BUZZ_003,Buzz post card,buzz,smoke,5,click,login_button,,,Submit login
+TC_BUZZ_003,Buzz post card,buzz,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_BUZZ_003,Buzz post card,buzz,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/buzz/viewBuzz,,
+TC_BUZZ_003,Buzz post card,buzz,smoke,8,assert_visible,buzz.buzz_card,,,
+TC_BUZZ_003,Buzz post card,buzz,smoke,9,close_browser,,,,Cleanup
+TC_CLAIM_001,Claim module,claim,smoke,1,start_browser,,chrome,,Launch browser
+TC_CLAIM_001,Claim module,claim,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_CLAIM_001,Claim module,claim,smoke,3,type,username,Admin,,Enter username
+TC_CLAIM_001,Claim module,claim,smoke,4,type,password,admin123,,Enter password
+TC_CLAIM_001,Claim module,claim,smoke,5,click,login_button,,,Submit login
+TC_CLAIM_001,Claim module,claim,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_CLAIM_001,Claim module,claim,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewClaimModule,,Claim module smoke
+TC_CLAIM_001,Claim module,claim,smoke,8,assert_url,,,viewClaimModule,Verify URL
+TC_CLAIM_001,Claim module,claim,smoke,9,assert_text,claim.claim_heading,,Claim,Verify page content
+TC_CLAIM_001,Claim module,claim,smoke,10,close_browser,,,,Cleanup
+TC_MYINFO_001,Personal Details,myinfo,smoke,1,start_browser,,chrome,,Launch browser
+TC_MYINFO_001,Personal Details,myinfo,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MYINFO_001,Personal Details,myinfo,smoke,3,type,username,Admin,,Enter username
+TC_MYINFO_001,Personal Details,myinfo,smoke,4,type,password,admin123,,Enter password
+TC_MYINFO_001,Personal Details,myinfo,smoke,5,click,login_button,,,Submit login
+TC_MYINFO_001,Personal Details,myinfo,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MYINFO_001,Personal Details,myinfo,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewMyDetails,,
+TC_MYINFO_001,Personal Details,myinfo,smoke,8,click,myinfo.personal_details_tab,,,
+TC_MYINFO_001,Personal Details,myinfo,smoke,9,wait,,1500,,
+TC_MYINFO_001,Personal Details,myinfo,smoke,10,assert_text,myinfo.personal_details_heading,Personal Details,,
+TC_MYINFO_001,Personal Details,myinfo,smoke,11,close_browser,,,,Cleanup
+TC_MYINFO_002,Contact Details,myinfo,smoke,1,start_browser,,chrome,,Launch browser
+TC_MYINFO_002,Contact Details,myinfo,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MYINFO_002,Contact Details,myinfo,smoke,3,type,username,Admin,,Enter username
+TC_MYINFO_002,Contact Details,myinfo,smoke,4,type,password,admin123,,Enter password
+TC_MYINFO_002,Contact Details,myinfo,smoke,5,click,login_button,,,Submit login
+TC_MYINFO_002,Contact Details,myinfo,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MYINFO_002,Contact Details,myinfo,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewMyDetails,,
+TC_MYINFO_002,Contact Details,myinfo,smoke,8,click,myinfo.contact_details_tab,,,
+TC_MYINFO_002,Contact Details,myinfo,smoke,9,wait,,1500,,
+TC_MYINFO_002,Contact Details,myinfo,smoke,10,assert_text,myinfo.contact_details_heading,Contact Details,,
+TC_MYINFO_002,Contact Details,myinfo,smoke,11,close_browser,,,,Cleanup
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,1,start_browser,,chrome,,Launch browser
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,3,type,username,Admin,,Enter username
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,4,type,password,admin123,,Enter password
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,5,click,login_button,,,Submit login
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewMyDetails,,
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,8,click,myinfo.emergency_contacts_tab,,,
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,9,wait,,1500,,
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,10,assert_text,myinfo.emergency_contacts_heading,Emergency Contacts,,
+TC_MYINFO_003,Emergency Contacts,myinfo,smoke,11,close_browser,,,,Cleanup
+TC_MYINFO_004,Dependents,myinfo,smoke,1,start_browser,,chrome,,Launch browser
+TC_MYINFO_004,Dependents,myinfo,smoke,2,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/auth/login,,Open login page
+TC_MYINFO_004,Dependents,myinfo,smoke,3,type,username,Admin,,Enter username
+TC_MYINFO_004,Dependents,myinfo,smoke,4,type,password,admin123,,Enter password
+TC_MYINFO_004,Dependents,myinfo,smoke,5,click,login_button,,,Submit login
+TC_MYINFO_004,Dependents,myinfo,smoke,6,assert_url,,,dashboard,Verify dashboard redirect
+TC_MYINFO_004,Dependents,myinfo,smoke,7,navigate,,https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewMyDetails,,
+TC_MYINFO_004,Dependents,myinfo,smoke,8,click,myinfo.dependents_tab,,,
+TC_MYINFO_004,Dependents,myinfo,smoke,9,wait,,1500,,
+TC_MYINFO_004,Dependents,myinfo,smoke,10,assert_text,myinfo.dependents_heading,Dependents,,
+TC_MYINFO_004,Dependents,myinfo,smoke,11,close_browser,,,,Cleanup

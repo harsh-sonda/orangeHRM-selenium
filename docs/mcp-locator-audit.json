@@ -1,0 +1,199 @@
+[
+  {
+    "test_id": "TC_ADMIN_001",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers",
+    "navigation": "direct_url",
+    "subheading": null,
+    "topbar_labels": ["User Management", "Job", "Organization", "Qualifications", "More"],
+    "assert_strategy": "table_contains",
+    "locators": {
+      "username_search": "//label[normalize-space()='Username']/ancestor::div[contains(@class,'oxd-input-group')]//input"
+    }
+  },
+  {
+    "test_id": "TC_ADMIN_006",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewOrganizationGeneralInformation",
+    "navigation": "direct_url",
+    "subheading": "General Information",
+    "assert_strategy": "page_subheading",
+    "locators": { "page_subheading": "h6.orangehrm-main-title" }
+  },
+  {
+    "test_id": "TC_ADMIN_007",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewAdminModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewLocations",
+    "navigation": "direct_url",
+    "subheading": null,
+    "assert_strategy": "page_body",
+    "locators": { "filter_title": "h5.oxd-table-filter-title" }
+  },
+  {
+    "test_id": "TC_ADMIN_008",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSkills",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSkills",
+    "navigation": "direct_url",
+    "subheading": "Skills",
+    "assert_strategy": "page_subheading",
+    "locators": { "page_subheading": "h6.orangehrm-main-title" }
+  },
+  {
+    "test_id": "TC_ADMIN_009",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewEducation",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewEducation",
+    "navigation": "direct_url",
+    "subheading": "Education",
+    "assert_strategy": "page_subheading",
+    "locators": { "page_subheading": "h6.orangehrm-main-title" }
+  },
+  {
+    "test_id": "TC_ADMIN_010",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewLicenses",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewLicenses",
+    "navigation": "direct_url",
+    "subheading": "Licenses",
+    "assert_strategy": "page_subheading",
+    "locators": { "page_subheading": "h6.orangehrm-main-title" }
+  },
+    {
+    "test_id": "TC_ADMIN_011",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewNationality",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/nationality",
+    "navigation": "direct_url",
+    "assert_strategy": "page_body",
+    "expected_text": "Nationalities"
+  },
+  {
+    "test_id": "TC_ADMIN_012",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewCorporateBranding",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/addTheme",
+    "navigation": "direct_url",
+    "assert_strategy": "page_body",
+    "expected_text": "Corporate Branding"
+  },
+  {
+    "test_id": "TC_TIME_002",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet",
+    "navigation": "direct_url",
+    "subheading": "Select Employee",
+    "assert_strategy": "page_subheading",
+    "expected_text": "Employee"
+  },
+  {
+    "test_id": "TC_TIME_005",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewCustomers",
+    "navigation": "direct_url",
+    "subheading": "Customers",
+    "assert_strategy": "page_subheading"
+  },
+  {
+    "test_id": "TC_TIME_006",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewTimeModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewProjects",
+    "navigation": "direct_url",
+    "subheading": "Projects",
+    "assert_strategy": "page_subheading"
+  },
+  {
+    "test_id": "TC_CLAIM_001",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewClaimModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewAssignClaim",
+    "navigation": "redirect",
+    "url_fragments": ["viewAssignClaim", "viewClaimModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Claim"
+  },
+  {
+    "test_id": "TC_MAINT_002",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/viewMaintenanceModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/purgeEmployee",
+    "navigation": "redirect",
+    "url_fragments": ["purgeEmployee", "viewMaintenanceModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Administrator Access"
+  },
+  {
+    "test_id": "TC_MAINT_003",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/viewMaintenanceModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/maintenance/purgeEmployee",
+    "navigation": "redirect",
+    "url_fragments": ["purgeEmployee", "viewMaintenanceModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Administrator Access"
+  },
+  {
+    "test_id": "TC_PERF_005",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/performance/viewPerformanceModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview",
+    "navigation": "redirect",
+    "url_fragments": ["searchEvaluatePerformanceReview", "viewPerformanceModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Manage Reviews"
+  },
+  {
+    "test_id": "TC_REC_005",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewRecruitmentModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates",
+    "navigation": "redirect",
+    "url_fragments": ["viewCandidates", "viewRecruitmentModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Candidates"
+  },
+  {
+    "test_id": "TC_PIM_006",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPimModule",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
+    "navigation": "redirect",
+    "url_fragments": ["viewEmployeeList", "viewPimModule"],
+    "assert_strategy": "page_body",
+    "expected_text": "Employee Information"
+  },
+  {
+    "test_id": "TC_DIR_002",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory",
+    "navigation": "direct_url",
+    "assert_strategy": "directory_cards",
+    "locators": { "directory_card": ".orangehrm-directory-card" }
+  },
+  {
+    "test_id": "TC_REC_004",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy",
+    "navigation": "direct_url",
+    "assert_strategy": "form_visible",
+    "locators": {
+      "vacancy_name": "//label[normalize-space()='Vacancy Name']/ancestor::div[contains(@class,'oxd-input-group')]//input"
+    }
+  },
+  {
+    "test_id": "TC_PIM_002",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
+    "navigation": "direct_url",
+    "assert_strategy": "table_contains",
+    "locators": {
+      "employee_name_search": "//label[normalize-space()='Employee Name']/ancestor::div[contains(@class,'oxd-input-group')]//input"
+    }
+  },
+  {
+    "test_id": "TC_LEAVE_002",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/leave/applyLeave",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/leave/applyLeave",
+    "navigation": "direct_url",
+    "subheading": "Apply Leave",
+    "assert_strategy": "conditional_crud",
+    "notes": "Demo shows 'No Leave Types with Leave Balance' for Admin — assert page loaded when form absent"
+  },
+  {
+    "test_id": "TC_MYINFO_001",
+    "requested_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewMyDetails",
+    "actual_url": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPersonalDetails/empNumber/7",
+    "navigation": "redirect",
+    "assert_strategy": "tab_role",
+    "locators": { "personal_details_tab": "//div[@role='tab' and normalize-space()='Personal Details']" }
+  }
+]

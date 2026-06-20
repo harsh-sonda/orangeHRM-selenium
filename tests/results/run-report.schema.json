@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OrangeHRM E2E Run Report",
+  "type": "object",
+  "required": ["run_id", "started_at", "finished_at", "summary", "results"],
+  "properties": {
+    "run_id": { "type": "string" },
+    "started_at": { "type": "string" },
+    "finished_at": { "type": "string" },
+    "manifest_path": { "type": "string" },
+    "filters": { "type": "object" },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total": { "type": "integer" },
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_id": { "type": "string" },
+          "test_name": { "type": "string" },
+          "module": { "type": "string" },
+          "depth": { "type": "string" },
+          "status": { "enum": ["pass", "fail"] },
+          "failed_step": { "type": ["integer", "null"] },
+          "reason": { "type": ["string", "null"] },
+          "screenshot": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

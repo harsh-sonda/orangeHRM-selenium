@@ -1,80 +1,77 @@
 ---
 name: run-orangehrm-e2e
-description: Run CSV-driven E2E tests against OrangeHRM using user-selenium MCP. Use when asked to run login tests, execute CSV tests, or validate OrangeHRM E2E scenarios.
+description: Run OrangeHRM E2E tests via Java Maven POM suite or user-selenium MCP. Use when asked to run E2E tests, execute OrangeHRM scenarios, or validate module tests.
 ---
 
 # Run OrangeHRM E2E Tests
 
-Execute CSV test cases against the OrangeHRM demo site via the `user-selenium` MCP server.
+Primary execution is the **Java Page Object Model suite** (72 tests, 14 module classes). Use Maven unless the user explicitly asks for MCP/browser-agent execution.
 
-## Prerequisites
+## Java POM suite (default)
 
-- `user-selenium` MCP server enabled in Cursor
-- Chrome installed locally
-- Test files: `tests/csv/login.csv`, `tests/locators/login.json`
+```bash
+# Full suite (~2–3 hours)
+mvn clean test
 
-## Execution workflow
+# Single module
+mvn test -Dtest=AuthTest
+mvn test -Dtest=AdminTest
 
-1. Read `tests/csv/login.csv` and group rows by `test_id`, ordered by `step`.
-2. Load locators from `tests/locators/login.json`.
-3. Create `tests/results/` if it does not exist (for failure screenshots).
-4. For each test group, execute steps sequentially.
-5. Always run `close_browser` even when earlier steps fail.
-6. After all tests, print a results table:
-
-```
-| test_id | test_name | status | failed_step | reason |
+# Visible browser
+mvn clean test -Dheadless=false
 ```
 
-## Locator resolution
+Suite entry: [`testng.xml`](testng.xml) — all classes under `com.orangehrm.tests`.
 
-- `locator_key` maps to an entry in `login.json` (e.g. `username` → `{ "by": "name", "value": "username" }`).
-- Skip locator lookup for browser-level actions (`start_browser`, `navigate`, `assert_url`, `close_browser`).
+| Class | Tests |
+|-------|-------|
+| AuthTest | 6 |
+| CommonTest | 3 |
+| DashboardTest | 5 |
+| AdminTest | 12 |
+| PimTest | 6 |
+| LeaveTest | 8 |
+| TimeTest | 8 |
+| RecruitmentTest | 6 |
+| PerformanceTest | 5 |
+| MyInfoTest | 4 |
+| BuzzTest | 3 |
+| DirectoryTest | 2 |
+| ClaimTest | 1 |
+| MaintenanceTest | 3 |
 
-## Action → MCP tool mapping
+Locators and flows live in [`src/main/java/com/orangehrm/pages/`](src/main/java/com/orangehrm/pages/). Archived step spec: [`docs/e2e-spec.csv`](docs/e2e-spec.csv).
 
-| CSV `action` | MCP tool | Arguments |
-|--------------|----------|-----------|
-| `start_browser` | `start_browser` | `{ "browser": "<input>", "options": { "headless": false } }` |
-| `navigate` | `navigate` | `{ "url": "<input>" }` |
-| `type` | `send_keys` | `{ "by": "<locator.by>", "value": "<locator.value>", "text": "<input>", "timeout": 10000 }` |
-| `click` | `interact` | `{ "action": "click", "by": "<locator.by>", "value": "<locator.value>", "timeout": 10000 }` |
-| `assert_text` | `get_element_text` | `{ "by": "<locator.by>", "value": "<locator.value>", "timeout": 10000 }` — pass if result contains `expected` |
-| `assert_url` | `execute_script` | `{ "script": "return window.location.href" }` — pass if result contains `expected` |
-| `assert_attribute` | `get_element_attribute` | `{ "by": "<locator.by>", "value": "<locator.value>", "attribute": "<attr from expected>", "timeout": 10000 }` — `expected` format is `attr=value` |
-| `snapshot` | Fetch MCP resource | `accessibility://current` on server `user-selenium` |
-| `screenshot` | `take_screenshot` | `{ "outputPath": "tests/results/<test_id>-step<step>-fail.png" }` |
-| `close_browser` | `close_session` | `{}` |
+## MCP agent execution (optional)
 
-Read MCP tool schemas from the `user-selenium` MCP server before calling tools if unsure of parameters.
+When the user wants MCP-driven runs, read test methods in `src/test/java/com/orangehrm/tests/` and execute equivalent steps with `user-selenium` MCP:
 
-## Failure handling
+1. Read MCP tool schemas from `user-selenium` before first call
+2. Follow the same flow as the Java `@Test` method (login → navigate → interact → assert)
+3. Use page-object locators from Java source (e.g. `LoginPage`, `CommonPage`)
+4. On failure, screenshot to `tests/results/{test_id}-fail.png`
+5. Write `tests/results/run-report.json` with pass/fail summary
 
-1. On assertion or interaction failure: call `take_screenshot` with path `tests/results/{test_id}-step{step}-fail.png`.
-2. Record `failed_step` and `reason` in the results table.
-3. Continue remaining steps in the current test (including `close_browser`).
-4. Proceed to the next `test_id`.
+### MCP action hints
 
-## Locator fallback
+| Flow step | MCP tool |
+|-----------|----------|
+| Open URL | `navigate` |
+| Type in field | `send_keys` (once per field) |
+| Click | `interact` action `click` |
+| Assert text | `get_element_text` |
+| Assert URL | `execute_script` → `window.location.href` |
+| Wait | `execute_script` with `setTimeout` promise |
 
-If `send_keys`, `interact`, or `get_element_text` times out:
+### Agent rules
 
-1. Fetch `accessibility://current` from `user-selenium`.
-2. Identify the correct element from the accessibility tree.
-3. Retry with an updated locator; if successful, update `tests/locators/login.json`.
-
-## Default timeouts
-
-Use `timeout: 10000` (10 seconds) on all element interactions and assertions unless the demo site is unusually slow.
-
-## Running tests
-
-When the user asks to run tests, execute all rows in `tests/csv/login.csv` unless they specify a subset (e.g. `TC_LOGIN_001` only).
-
-Example prompt: *"Run OrangeHRM login E2E tests from CSV"*
+1. **Login:** single `send_keys` per field — double entry causes "Invalid credentials"
+2. **Topbar:** click parent menu item before submenu link; wait 500–1500ms
+3. **Leave dates:** OrangeHRM `yyyy-dd-mm` (e.g. `2026-01-07` = 1 July 2026)
+4. **Error alerts:** wait 2000ms after failed login before asserting
+5. Always `close_session` when done
 
 ## Demo credentials
 
 - URL: `https://opensource-demo.orangehrmlive.com/web/index.php/auth/login`
-- Username: `Admin`
-- Password: `admin123`
+- Username: `Admin` / Password: `admin123`

@@ -1,0 +1,17 @@
+---
+description: Run OrangeHRM E2E tests via Java POM suite or user-selenium MCP
+globs: src/test/java/com/orangehrm/tests/**,src/main/java/com/orangehrm/pages/**
+alwaysApply: false
+---
+
+# OrangeHRM E2E Tests
+
+When the user asks to run E2E tests or OrangeHRM scenarios:
+
+1. **Default:** run Java POM tests — `mvn test -Dtest=<ModuleTest>` or `mvn clean test` for full suite
+2. Load skill: `.cursor/skills/run-orangehrm-e2e/SKILL.md`
+3. Tests live in `src/test/java/com/orangehrm/tests/` (14 classes, 72 `@Test` methods)
+4. Page objects: `src/main/java/com/orangehrm/pages/`
+5. For MCP runs, mirror the Java test flow using `user-selenium` tools
+
+Do not reference CSV runner or `E2eCsvTest` — removed in favor of POM.

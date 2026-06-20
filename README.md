@@ -1,9 +1,6 @@
 # orangeHRM-selenium
 
-E2E tests for the [OrangeHRM demo site](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login) using two execution models:
-
-1. **Java POM** — Selenium WebDriver + TestNG + Maven (standalone / CI)
-2. **MCP agent** — CSV step definitions executed via Cursor + user-selenium MCP
+E2E tests for the [OrangeHRM demo site](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login) using **Java Page Object Model (POM)** with Selenium WebDriver, TestNG, and Maven.
 
 ## Demo credentials
 
@@ -13,161 +10,104 @@ E2E tests for the [OrangeHRM demo site](https://opensource-demo.orangehrmlive.co
 | Username | Admin     |
 | Password | admin123  |
 
-## Java POM tests (recommended for local/CI)
+Configure in [`src/test/resources/config.properties`](src/test/resources/config.properties) (`admin.username`, `admin.password`).
 
-### Prerequisites
-
-- JDK 17+
-- Maven 3.8+
-- Google Chrome
-
-### Run all login tests
+## Run tests
 
 ```bash
+# Full suite — 72 tests across 14 module classes (~2–3 hours)
 mvn clean test
+
+# Visible browser (default is headless)
+mvn clean test -Dheadless=false
+
+# Single module
+mvn test -Dtest=AuthTest
+mvn test -Dtest=AdminTest
+mvn test -Dtest=PimTest
 ```
 
-### Run a single test class
+### GitHub Actions
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the full suite on push/PR to `main` (3-hour timeout):
 
 ```bash
-mvn test -Dtest=LoginTest
+mvn clean test -B
 ```
 
-### GitHub Actions CI
+CI verifies **72** `@Test` methods, publishes a Cypress-style summary, and uploads Surefire reports.
 
-Tests run automatically on push and pull requests to `main` via [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+## Architecture
 
-The workflow uses Ubuntu, JDK 17, Chrome (headless), and runs:
-
-```bash
-mvn clean test -B -Dheadless=true
+```mermaid
+flowchart LR
+  TestNG[14 module test classes] --> BaseTest
+  TestNG --> PageObjects[Page objects]
+  PageObjects --> BasePage
+  PageObjects --> WebDriver
 ```
 
-To trigger manually: **Actions** → **OrangeHRM E2E Tests** → **Run workflow**.
+| Layer | Location | Role |
+|-------|----------|------|
+| Tests | [`src/test/java/com/orangehrm/tests/`](src/test/java/com/orangehrm/tests/) | 14 TestNG classes, 72 `@Test` methods |
+| Base | [`BaseTest`](src/test/java/com/orangehrm/base/BaseTest.java) | WebDriver lifecycle, `loginAsAdmin()` |
+| Pages | [`src/main/java/com/orangehrm/pages/`](src/main/java/com/orangehrm/pages/) | Locators + intent methods per module |
+| Suite | [`testng.xml`](testng.xml) | All 14 module test classes |
 
-### Configuration
+### Module test classes (72 tests)
 
-Edit `src/test/resources/config.properties`:
+| Class | Tests | Module |
+|-------|-------|--------|
+| `AuthTest` | 6 | Login, validation, UI smoke |
+| `CommonTest` | 3 | Sidebar, user menu, logout |
+| `DashboardTest` | 5 | Widgets, quick launch |
+| `AdminTest` | 12 | System users, job/org/qualifications topbar |
+| `PimTest` | 6 | Employee list, search, add form |
+| `LeaveTest` | 8 | Apply leave, entitlements, config |
+| `TimeTest` | 8 | Timesheets, attendance, projects |
+| `RecruitmentTest` | 6 | Candidates, vacancies |
+| `PerformanceTest` | 5 | Reviews, trackers, KPIs |
+| `MyInfoTest` | 4 | Personal/contact/emergency tabs |
+| `BuzzTest` | 3 | Feed, composer |
+| `DirectoryTest` | 2 | Grid, search |
+| `ClaimTest` | 1 | Claim module |
+| `MaintenanceTest` | 3 | Purge, access module |
 
-| Property | Description |
-|----------|-------------|
-| `base.url` | OrangeHRM login URL |
-| `implicit.wait.seconds` | WebDriver wait timeout |
-| `browser` | Browser name (chrome) |
-| `headless` | Run headless when `true` (overridable with `-Dheadless=true`) |
+Shared navigation and assertions live in [`CommonPage`](src/main/java/com/orangehrm/pages/CommonPage.java).
 
-### Project structure
+## Project structure
 
 ```
 src/main/java/com/orangehrm/
-├── base/BasePage.java           # Shared wait helpers
-├── config/TestConfig.java       # Loads config.properties
-└── pages/
-    ├── LoginPage.java           # Login page object
-    └── DashboardPage.java       # Dashboard page object
-
+  base/BasePage.java
+  pages/LoginPage.java, CommonPage.java, AdminPage.java, ...
 src/test/java/com/orangehrm/
-├── base/BaseTest.java           # WebDriver lifecycle
-├── data/
-│   ├── CsvDataProvider.java     # TestNG data provider
-│   └── LoginTestData.java       # CSV row POJO
-└── tests/LoginTest.java         # Parameterized login tests
-
-src/test/resources/
-├── config.properties
-└── login-test-data.csv          # Test inputs and expectations
+  base/BaseTest.java
+  tests/AuthTest.java, AdminTest.java, ...   # 14 classes
+docs/e2e-spec.csv                            # Archived migration spec (742 steps)
+testng.xml
+.github/workflows/ci.yml
 ```
 
-### Test data (Java)
+## Adding or changing tests
 
-File: `src/test/resources/login-test-data.csv`
+1. Add locators and intent methods to the relevant page class under `src/main/java/com/orangehrm/pages/`.
+2. Add a `@Test` method to the matching module test class under `src/test/java/com/orangehrm/tests/`.
+3. Register new test classes in [`testng.xml`](testng.xml) if you add a module.
 
-One row per scenario. Columns: `test_id`, `test_name`, `username`, `password`, `scenario`, `expected_url_contains`, `expected_text`, `expected_text_target`.
+To regenerate test stubs from the archived CSV spec (optional):
 
-The `scenario` column drives test logic in `LoginTest.java` (`valid_login`, `invalid_login`, `empty_username`, etc.).
-
-## MCP agent tests (Cursor)
-
-### Prerequisites
-
-- [Cursor](https://cursor.com) with the **user-selenium** MCP server enabled
-- Google Chrome installed locally
-
-### How to run
-
-In Cursor chat, ask:
-
-> Run OrangeHRM login E2E tests from CSV
-
-The agent loads the `run-orangehrm-e2e` skill, reads `tests/csv/login.csv`, and executes each step through Selenium MCP.
-
-To run a single test:
-
-> Run test TC_LOGIN_001 from tests/csv/login.csv
-
-### MCP project structure
-
-```
-tests/
-├── csv/login.csv          # Step-by-step test cases
-├── locators/login.json    # Element locators for MCP
-└── results/               # Failure screenshots (gitignored)
-.cursor/skills/run-orangehrm-e2e/SKILL.md
+```bash
+python3 .github/scripts/generate_pom_tests.py
 ```
 
-### CSV schema (MCP)
+## Known demo-site quirks
 
-File: `tests/csv/login.csv`
-
-| Column        | Description |
-|---------------|-------------|
-| `test_id`     | Groups steps into one test case |
-| `test_name`   | Human-readable test name |
-| `step`        | Step order within the test |
-| `action`      | Action keyword |
-| `locator_key` | Key from `tests/locators/login.json` |
-| `input`       | URL, text, browser name, etc. |
-| `expected`    | Assertion target |
-| `notes`       | Optional description |
-
-## Test coverage
-
-| Test ID       | Scenario |
-|---------------|----------|
-| TC_LOGIN_001  | Valid login → dashboard |
-| TC_LOGIN_002  | Invalid credentials → error message |
-| TC_LOGIN_003  | Empty username → required validation |
-| TC_LOGIN_004  | Empty password → required validation |
-| TC_LOGIN_005  | Both fields empty → required validation |
-| TC_LOGIN_006  | UI smoke — heading, button, forgot password, branding |
-
-## Adding new tests
-
-### Java POM
-
-1. Add locators/methods to `LoginPage.java` or new page objects.
-2. Add a row to `src/test/resources/login-test-data.csv`.
-3. Handle the new `scenario` in `LoginTest.java` if needed.
-4. Run `mvn test`.
-
-### MCP agent
-
-1. Add locators to `tests/locators/login.json`.
-2. Append rows to `tests/csv/login.csv` with a new `test_id`.
-3. Each test must start with `start_browser` and end with `close_browser`.
-4. Ask the agent to run the new test case.
-
-## Data file relationship
-
-| File | Purpose |
-|------|---------|
-| `tests/csv/login.csv` | Step-level instructions for MCP agent execution |
-| `src/test/resources/login-test-data.csv` | Inputs and expectations for Java TestNG tests |
-| `tests/locators/login.json` | Locators for MCP; Java locators live in page object classes |
+- Leave date fields use OrangeHRM `yyyy-dd-mm` format (e.g. `2026-01-07` = 1 July 2026).
+- Admin/Time sub-pages require topbar parent click before menu item click.
+- `TC_LEAVE_002` (apply personal leave) may fail when demo leave balance is zero.
 
 ## Limitations
 
-- MCP tests run inside Cursor — not standalone without an agent.
-- Java tests require Chrome and network access to the public demo site.
-- The demo site may be slow or rate-limited; retries may be needed.
-- Locators may drift when OrangeHRM updates its UI.
+- Full suite (~72 tests) takes ~2–3 hours in CI.
+- Shared demo site may rate-limit; CRUD leave tests add records.

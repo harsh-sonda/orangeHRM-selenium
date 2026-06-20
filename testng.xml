@@ -1,8 +1,21 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="OrangeHRM Login Suite">
-    <test name="Login Tests">
+<suite name="OrangeHRM E2E Suite" parallel="false" thread-count="1">
+    <test name="All Modules">
         <classes>
-            <class name="com.orangehrm.tests.LoginTest"/>
+            <class name="com.orangehrm.tests.AuthTest"/>
+            <class name="com.orangehrm.tests.CommonTest"/>
+            <class name="com.orangehrm.tests.DashboardTest"/>
+            <class name="com.orangehrm.tests.AdminTest"/>
+            <class name="com.orangehrm.tests.PimTest"/>
+            <class name="com.orangehrm.tests.LeaveTest"/>
+            <class name="com.orangehrm.tests.TimeTest"/>
+            <class name="com.orangehrm.tests.RecruitmentTest"/>
+            <class name="com.orangehrm.tests.PerformanceTest"/>
+            <class name="com.orangehrm.tests.MyInfoTest"/>
+            <class name="com.orangehrm.tests.BuzzTest"/>
+            <class name="com.orangehrm.tests.DirectoryTest"/>
+            <class name="com.orangehrm.tests.ClaimTest"/>
+            <class name="com.orangehrm.tests.MaintenanceTest"/>
         </classes>
     </test>
 </suite>

@@ -4,12 +4,13 @@ import com.orangehrm.base.BasePage;
 import com.orangehrm.config.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
     private static final By USERNAME = By.name("username");
     private static final By PASSWORD = By.name("password");
-    private static final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
+    private static final By LOGIN_BUTTON = By.xpath("//button[@type='submit' and contains(.,'Login')]");
     private static final By ERROR_ALERT = By.cssSelector(".oxd-alert-content-text");
     private static final By LOGIN_HEADING = By.cssSelector(".orangehrm-login-title");
     private static final By FORGOT_PASSWORD = By.cssSelector(".orangehrm-login-forgot-header");
@@ -27,6 +28,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage open() {
         driver.get(TestConfig.getBaseUrl());
+        sleepQuietly(500);
         return this;
     }
 
@@ -51,35 +53,39 @@ public class LoginPage extends BasePage {
         clickLogin();
     }
 
-    public String getErrorAlertText() {
-        return getText(ERROR_ALERT);
+    public void waitForLoginResult() {
+        sleepQuietly(2000);
     }
 
-    public String getUsernameRequiredText() {
-        return getText(USERNAME_REQUIRED);
+    public void assertErrorAlertContains(String text) {
+        assertTextContains(ERROR_ALERT, text);
     }
 
-    public String getPasswordRequiredText() {
-        return getText(PASSWORD_REQUIRED);
+    public void assertUsernameRequiredContains(String text) {
+        assertTextContains(USERNAME_REQUIRED, text);
     }
 
-    public String getLoginHeadingText() {
-        return getText(LOGIN_HEADING);
+    public void assertPasswordRequiredContains(String text) {
+        assertTextContains(PASSWORD_REQUIRED, text);
     }
 
-    public String getForgotPasswordText() {
-        return getText(FORGOT_PASSWORD);
+    public void assertLoginHeadingContains(String text) {
+        assertTextContains(LOGIN_HEADING, text);
     }
 
-    public String getVersionText() {
-        return getText(VERSION_TEXT);
+    public void assertForgotPasswordContains(String text) {
+        assertTextContains(FORGOT_PASSWORD, text);
     }
 
-    public String getLoginButtonType() {
-        return getAttribute(LOGIN_BUTTON, "type");
+    public void assertVersionTextContains(String text) {
+        assertTextContains(VERSION_TEXT, text);
     }
 
-    public boolean isOnLoginPage() {
-        return driver.getCurrentUrl().contains("auth/login");
+    public void assertLoginButtonTypeSubmit() {
+        assertAttributeEquals(LOGIN_BUTTON, "type", "submit");
+    }
+
+    public void assertOnLoginPage() {
+        wait.until(ExpectedConditions.urlContains("auth/login"));
     }
 }
